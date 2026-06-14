@@ -1,0 +1,158 @@
+:root {
+    --bg: #f5f1ea;
+    --surface: #fffdf9;
+    --text: #3d3528;
+    --muted: #8a8070;
+    --border: #e0d8c9;
+    --accent: #a8826a;
+
+    --applied: #8a8070;
+    --interview: #c19a6b;
+    --offer: #7d8c6c;
+    --rejected: #b07a6e;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 40px;
+    line-height: 1.6;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 28px;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+a:hover {
+    border-bottom-color: var(--accent);
+}
+
+form {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+label {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+select, button, input, textarea {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text);
+    font-family: inherit;
+}
+
+input, textarea {
+    width: 100%;
+    max-width: 400px;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+th, td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+}
+
+th {
+    background: var(--bg);
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover td {
+    background: #faf7f2;
+}
+
+/* Status badges */
+.status-Applied,
+.status-Interview,
+.status-Offer,
+.status-Rejected {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.status-Applied { background: var(--applied); }
+.status-Interview { background: var(--interview); }
+.status-Offer { background: var(--offer); }
+.status-Rejected { background: var(--rejected); }
+
+/* Form pages (add/edit) */
+.form-container {
+    background: var(--surface);
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 500px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.form-container label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    color: var(--text);
+    font-weight: 500;
+}
