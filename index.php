@@ -2,22 +2,23 @@
 require 'config.php';
 
 $filter = $_GET['status'] ?? '';
+$allowed = ['Applied', 'Interview', 'Offer', 'Rejected'];
 
-if ($filter && in_array($filter, ['Applied','Interview','Offer','Rejected'])) {
-    $stmt = $conn->prepare("SELECT * FROM applications WHERE status=? ORDER BY id DESC");
-    $stmt->bind_param("s", $filter);
-    $stmt->execute();
-    $result = $stmt->get_result();
+if ($filter && in_array($filter, $allowed)) {
+    $stmt = $pdo->prepare("SELECT * FROM applications WHERE status=? ORDER BY id DESC");
+    $stmt->execute([$filter]);
 } else {
-    $result = $conn->query("SELECT * FROM applications ORDER BY id DESC");
+    $stmt = $pdo->query("SELECT * FROM applications ORDER BY id DESC");
 }
+
+$applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
     <title>Job Tracker</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Job Applications</h1>
@@ -43,10 +44,10 @@ if ($filter && in_array($filter, ['Applied','Interview','Offer','Rejected'])) {
             <th>Notes</th>
             <th>Actions</th>
         </tr>
-        <?php if ($result->num_rows === 0): ?>
+        <?php if (empty($applications)): ?>
             <tr><td colspan="7">No applications found.</td></tr>
         <?php else: ?>
-            <?php while ($row = $result->fetch_assoc()): ?>
+            <?php foreach ($applications as $row): ?>
             <tr>
                 <td><?= htmlspecialchars($row['company']) ?></td>
                 <td><?= htmlspecialchars($row['role']) ?></td>
@@ -59,10 +60,8 @@ if ($filter && in_array($filter, ['Applied','Interview','Offer','Rejected'])) {
                     <a href="delete.php?id=<?= $row['id'] ?>">Delete</a>
                 </td>
             </tr>
-            <?php endwhile; ?>
+            <?php endforeach; ?>
         <?php endif; ?>
     </table>
-
-    <?php $conn->close(); ?>
 </body>
 </html>
